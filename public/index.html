@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GO HEALTH - Your Kawaii Meal Reminder</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="../src/styles.css">
+    <link rel="manifest" href="manifest.json">
+
+</head>
+<body class="flex justify-center items-start min-h-screen p-4 sm:p-8">
+
+    <main class="w-full max-w-4xl mx-auto">
+        <header class="flex items-center justify-between p-4 bg-pink-500 text-white rounded-2xl shadow-lg">
+            <div class="flex items-center gap-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" /><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2H6z" /></svg>
+                <div><h1 class="text-xl font-bold">GO HEALTH</h1><p class="text-xs text-pink-100">Your Kawaii Meal Reminder</p></div>
+            </div>
+            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-inner"><span class="transform -translate-y-1">◕_◕</span></div>
+        </header>
+
+        <nav class="mt-6">
+            <div id="nav-tabs" class="flex bg-white p-1 rounded-xl shadow-md">
+                <button data-tab="meal-plan" class="nav-tab w-full py-2 px-4 rounded-lg bg-pink-500 text-white font-semibold">Meal Plan</button>
+                <button data-tab="reminders" class="nav-tab w-full py-2 px-4 rounded-lg text-gray-500 font-semibold">Reminders</button>
+                <button data-tab="calorie-counter" class="nav-tab w-full py-2 px-4 rounded-lg text-gray-500 font-semibold">Calorie Counter</button>
+            </div>
+        </nav>
+        
+        <section id="meal-plan-page" class="page-content mt-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-700">Meal Plan</h2>
+                <button id="add-meal-btn" class="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-full shadow-md hover:bg-pink-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                    <span class="hidden sm:inline">Add Meal</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-4 rounded-2xl shadow-md flex items-end gap-2">
+                    <div id="cute-calendar" class="flex-grow"></div>
+                    <div class="hidden lg:block"><img src="img.png" alt="Cute Anime Character" class="h-40"></div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-md">
+                    <h3 class="font-semibold text-gray-600 mb-2">Day Summary</h3>
+                    <p class="text-sm text-gray-500">Total meals: <span id="total-meals" class="font-bold">0</span></p>
+                    <p class="text-sm text-gray-500">Total calories: <span id="total-calories" class="font-bold text-pink-500">0 kcal</span></p>
+                    <div class="mt-2">
+                        <div class="progress-bar w-full rounded-full h-2.5"><div id="progress-bar-fill" class="progress h-2.5 rounded-full" style="width: 0%"></div></div>
+                        <p class="text-xs text-right text-gray-400 mt-1">Daily goal: 2000 kcal</p>
+                    </div>
+                </div>
+            </div>
+            <div id="meal-cards-container" class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 mb-2"><span class="text-xl">🍳</span><h4 class="font-bold text-lg text-gray-700">Breakfast</h4></div>
+                    <div id="breakfast-list" class="space-y-4"></div>
+                </div>
+                 <div>
+                    <div class="flex items-center gap-2 mb-2"><span class="text-xl">🥗</span><h4 class="font-bold text-lg text-gray-700">Lunch</h4></div>
+                    <div id="lunch-list" class="space-y-4"></div>
+                </div>
+                 <div>
+                    <div class="flex items-center gap-2 mb-2"><span class="text-xl">🐟</span><h4 class="font-bold text-lg text-gray-700">Dinner</h4></div>
+                    <div id="dinner-list" class="space-y-4"></div>
+                </div>
+            </div>
+        </section>
+        <section id="reminders-page" class="page-content mt-6 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-700">Meal Reminders</h2>
+                <p class="text-gray-500 mt-1">Set up your daily meal reminders to stay on track!</p>
+                <div class="space-y-4 mt-6">
+                    <div class="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                        <div class="flex items-center gap-4"><span class="text-2xl">🍳</span><div><h3 class="font-bold text-gray-800">Breakfast</h3><p class="text-sm text-gray-500">Start your day right!</p></div></div>
+                        <div class="flex items-center gap-4"><input type="time" id="breakfast-time" class="text-lg font-semibold bg-transparent border-none focus:ring-0"><label class="toggle-switch"><input type="checkbox" id="breakfast-toggle" class="hidden"><span class="slider"></span></label></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                         <div class="flex items-center gap-4"><span class="text-2xl">🥗</span><div><h3 class="font-bold text-gray-800">Lunch</h3><p class="text-sm text-gray-500">Midday energy boost!</p></div></div>
+                        <div class="flex items-center gap-4"><input type="time" id="lunch-time" class="text-lg font-semibold bg-transparent border-none focus:ring-0"><label class="toggle-switch"><input type="checkbox" id="lunch-toggle" class="hidden"><span class="slider"></span></label></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                         <div class="flex items-center gap-4"><span class="text-xl">🐟</span><div><h3 class="font-bold text-gray-800">Dinner</h3><p class="text-sm text-gray-500">Evening nourishment!</p></div></div>
+                        <div class="flex items-center gap-4"><input type="time" id="dinner-time" class="text-lg font-semibold bg-transparent border-none focus:ring-0"><label class="toggle-switch"><input type="checkbox" id="dinner-toggle" class="hidden"><span class="slider"></span></label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                <h2 class="text-2xl font-bold text-gray-700">Notification Settings</h2>
+                <div class="space-y-4 mt-6">
+                    <div class="flex justify-between items-center"><label for="notification-sound" class="text-gray-600">Notification Sound</label><select id="notification-sound" class="border-gray-300 rounded-md shadow-sm"><option>Kawaii Bell</option><option>Sparkle</option><option>Chime</option></select></div>
+                    <div class="flex justify-between items-center"><label for="anime-character" class="text-gray-600">Anime Character</label><select id="anime-character" class="border-gray-300 rounded-md shadow-sm"><option>Mochi-chan</option><option>Yuki-kun</option><option>Sakura-chan</option></select></div>
+                    <div class="flex justify-between items-center"><span class="text-gray-600">Notification Style</span><div class="flex gap-4"><label class="flex items-center gap-2"><input type="checkbox" id="style-popup" class="rounded text-pink-500 focus:ring-pink-500"> Pop-up</label><label class="flex items-center gap-2"><input type="checkbox" id="style-sound" class="rounded text-pink-500 focus:ring-pink-500"> Sound</label></div></div>
+                </div>
+            </div>
+             <div class="flex justify-end mt-6"><button id="save-settings-btn" class="px-6 py-3 bg-pink-500 text-white font-bold rounded-lg shadow-md hover:bg-pink-600">Save Settings</button></div>
+        </section>
+        <section id="calorie-counter-page" class="page-content mt-6 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-700">Calorie Calculator</h2>
+                 <form id="calorie-calculator-form" class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <div class="md:col-span-2">
+                        <label for="calc-food-name" class="block text-sm font-medium text-gray-600">Food Item</label>
+                        <input type="text" id="calc-food-name" placeholder="Enter food name" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    </div>
+                     <div>
+                        <label for="calc-portion-size" class="block text-sm font-medium text-gray-600">Portion Size</label>
+                        <input type="number" id="calc-portion-size" value="100" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    </div>
+                     <div>
+                        <label for="calc-unit" class="block text-sm font-medium text-gray-600">Unit</label>
+                        <select id="calc-unit" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option>grams</option><option>pcs</option><option>ml</option>
+                        </select>
+                    </div>
+                     <div class="md:col-span-4">
+                         <button type="submit" class="w-full px-6 py-3 bg-pink-500 text-white font-bold rounded-lg shadow-md hover:bg-pink-600">✨ Calculate Calories</button>
+                     </div>
+                 </form>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                <h2 class="text-2xl font-bold text-gray-700">Common Foods</h2>
+                <div id="common-foods-list" class="divide-y divide-gray-200 mt-4"></div>
+            </div>
+        </section>
+    </main>
+    
+    <div id="add-meal-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Add a New Meal</h2>
+            <form id="add-meal-form">
+                <div class="mb-4">
+                    <label for="meal-name" class="block text-sm font-medium text-gray-600">Meal Name</label>
+                    <input type="text" id="meal-name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                </div>
+                <div class="mb-4">
+                    <label for="meal-calories" class="block text-sm font-medium text-gray-600">Calories (kcal)</label>
+                    <input type="number" id="meal-calories" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                </div>
+                <div class="mb-4">
+                    <label for="meal-category" class="block text-sm font-medium text-gray-600">Category</label>
+                    <select id="meal-category" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        <option value="Breakfast">Breakfast</option><option value="Lunch">Lunch</option><option value="Dinner">Dinner</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button type="button" class="modal-cancel-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">Save Meal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="category-prompt-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-center">
+            <h2 class="text-2xl font-bold text-gray-700 mb-2">Choose Category</h2>
+            <p class="text-gray-500 mb-6">Add "<span id="category-prompt-food-name"></span>" to which meal?</p>
+            <div id="category-buttons" class="flex flex-col sm:flex-row gap-4">
+                <button data-category="Breakfast" class="w-full category-btn px-4 py-3 bg-pink-100 text-pink-700 font-bold rounded-lg hover:bg-pink-200">🍳 Breakfast</button>
+                <button data-category="Lunch" class="w-full category-btn px-4 py-3 bg-pink-100 text-pink-700 font-bold rounded-lg hover:bg-pink-200">🥗 Lunch</button>
+                <button data-category="Dinner" class="w-full category-btn px-4 py-3 bg-pink-100 text-pink-700 font-bold rounded-lg hover:bg-pink-200">🐟 Dinner</button>
+            </div>
+             <button class="modal-cancel-btn mt-6 text-gray-500 hover:underline">Cancel</button>
+        </div>
+    </div>
+    <div id="toast-notification" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-500 z-50">Toast message</div>
+
+    <div id="reminder-alert-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-center">
+            <img id="reminder-char-img" src="https://i.ibb.co/L8y2B5Y/anime-char.png" alt="Mochi-chan" class="w-32 mx-auto mb-4">
+            <h2 id="reminder-title" class="text-2xl font-bold text-pink-500 mb-2">It's Lunch Time!</h2>
+            <p id="reminder-body" class="text-gray-600 mb-6">Time for a midday energy boost!</p>
+            <button id="reminder-ok-btn" class="w-full px-6 py-3 bg-pink-500 text-white font-bold rounded-lg shadow-md hover:bg-pink-600">Got it!</button>
+        </div>
+    </div>
+
+    <audio id="notification-audio" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb630cc098.mp3" preload="auto"></audio>
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../src/script.js"></script>
+</body>
+</html>

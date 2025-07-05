@@ -1,0 +1,103 @@
+/* Menambahkan font Poppins sebagai font default dan background */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFF0F5; /* Warna pink sangat muda */
+    
+    /* Background Polkadot */
+    background-image: radial-gradient(#FBCFE8 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+/* Custom style untuk progress bar */
+.progress-bar {
+    background-color: #FCE7F3; /* Warna latar progress bar */
+}
+
+.progress {
+    background-color: #EC4899; /* Warna progress */
+}
+/* --- Style untuk Kalender Imut (Flatpickr) --- */
+
+/* Ganti font agar sesuai tema */
+.flatpickr-calendar {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: none;
+    width: 100% !important;
+}
+
+/* Ganti warna panah navigasi bulan */
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    fill: #EC4899; /* Warna pink */
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+    fill: #DB2777; /* Warna pink lebih gelap */
+}
+
+/* Style untuk hari yang dipilih (selected) */
+.flatpickr-day.selected {
+    background: #EC4899;
+    border-color: #EC4899;
+}
+
+/* Style untuk hari ini (today) */
+.flatpickr-day.today {
+    border-color: #F472B6; /* Border pink lebih muda */
+}
+.flatpickr-day.today:hover {
+    background: #FBCFE8; /* Latar pink sangat muda saat hover */
+    border-color: #F472B6;
+}
+
+/* Style untuk hari saat di-hover */
+.flatpickr-day:hover {
+    background: #FCE7F3;
+}
+/* --- BARU: Style untuk Toggle Switch --- */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.toggle-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #EC4899; /* Warna pink */
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+/* --- BARU: Style untuk Notifikasi Toast --- */
+#toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}

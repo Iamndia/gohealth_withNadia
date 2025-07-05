@@ -1,0 +1,21 @@
+{
+  "name": "GO HEALTH",
+  "short_name": "GoHealth",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFF0F5",
+  "theme_color": "#EC4899",
+  "description": "Your Kawaii Meal Reminder.",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/bFqgT5x/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://i.ibb.co/T17r8xT/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
